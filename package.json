@@ -1,0 +1,33 @@
+{
+  "name": "@thingmate/vendor-meross",
+  "version": "1.0.0",
+  "description": "Description",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thingmate/vendor-meross"
+  },
+  "keywords": [],
+  "author": "Valentin Richard",
+  "license": "MIT",
+  "access": "public",
+  "sideEffects": false,
+  "dependencies": {
+    "@lifaon/md5": "^1.0.0",
+    "@lirx/async-task": "^1.0.0",
+    "@thingmate/mqtt": "^1.0.0",
+    "@thingmate/wot-scripting-api": "^1.0.0",
+    "@lirx/stream": "^0.8.0"
+  },
+  "_dependencies": {
+    "@lifaon/md5": "^1.0.0",
+    "@lirx/async-task": "^0.8.0",
+    "@thingmate/mqtt": "^1.0.0",
+    "@thingmate/wot-scripting-api": "^1.0.0"
+  },
+  "linkedDependencies": [
+    "@lirx/async-task",
+    "@lirx/stream",
+    "@thingmate/mqtt",
+    "@thingmate/wot-scripting-api"
+  ]
+}

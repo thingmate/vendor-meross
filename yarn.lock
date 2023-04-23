@@ -2,12 +2,67 @@
 # yarn lockfile v1
 
 
-wot-thing-description-types@^1.1.0-13-October-2022:
-  version "1.1.0-13-October-2022"
-  resolved "https://registry.yarnpkg.com/wot-thing-description-types/-/wot-thing-description-types-1.1.0-13-October-2022.tgz#172717f28f58d4ad2e19fc1b87ef30dd2268d0e7"
-  integrity sha512-16LVRNat1cSTiGHZBGKomIwISboAtS3LoZPtYF14uOTvW8wBu/QtJYcZi6MPEXCut7/WNw68EmtYMLfhU5UQbA==
+"@lifaon/md5@^1.0.0":
+  version "1.0.0"
+  resolved "http://localhost:4873/@lifaon/md5/-/md5-1.0.0.tgz#f83ea543d408b44cca912d9c58ba1a939c678f3c"
+  integrity sha512-/M0btFQQ/h9S4c+mvER0XgmkVPsyfUOQPRlOT0teXPdo6dwv7bWhHgoTpAirKWolrugbXGIGx7yqqUEaQqosoA==
 
-wot-typescript-definitions@^0.8.0-SNAPSHOT.23:
-  version "0.8.0-SNAPSHOT.23"
-  resolved "https://registry.yarnpkg.com/wot-typescript-definitions/-/wot-typescript-definitions-0.8.0-SNAPSHOT.23.tgz#ab5afcbd464557c81b6c43d3792b3cad2afab69c"
-  integrity sha512-xVp0RmiMWfGgW9im/b21Xi6CRn27U99Y3Al2/RpMQB08KGzedmTZlBWL8cex7uKe9Dg/NiD32fUJPZB9GLKAqw==
+"@lifaon/number-types@latest":
+  version "1.0.0-dev.1679324403547"
+  resolved "http://localhost:4873/@lifaon/number-types/-/number-types-1.0.0-dev.1679324403547.tgz#39fb1faed4ddd673aeb8ab7c32c2694b1a69c718"
+  integrity sha512-MQsH0M2u92AFRiIHH73mm3GdXy/sjqCID8uWREoEOjoFokgPsC/+svnxSVNFpQIJrjhsxyX0sFfATAQOKu0+KA==
+
+"@lifaon/traits@^3.0.0":
+  version "3.0.0"
+  resolved "http://localhost:4873/@lifaon/traits/-/traits-3.0.0.tgz#a02cb8b908c2f446c873fba7ec6482f0722eca03"
+  integrity sha512-IyGfjYpwQK5wUUUYVAK8zgTZ/CF6rn/mCPAuQBdp0ZEzmQns58FBJdWPAm5IlILydzgx7OMjBdXFjfUnl9hN2w==
+
+"@lirx/async-task@^1.0.0", "@lirx/async-task@latest":
+  version "1.0.0"
+  resolved "http://localhost:4873/@lirx/async-task/-/async-task-1.0.0.tgz#f07b12b6ca53caa6acce16128786b90a9a920add"
+  integrity sha512-xik1vVwQnDdpFp9tGLJp2BI4vMoRxa84TXhY3ztCBRXPYyFjQoq8tTR/2r169E2JV1wj634DgKt30SpIMA6rDA==
+
+"@lirx/core@latest":
+  version "1.3.0-dev.1679328963381"
+  resolved "http://localhost:4873/@lirx/core/-/core-1.3.0-dev.1679328963381.tgz#d7bfd6991b1ca0ef45af9dd7d2b7bddfdaad550d"
+  integrity sha512-djPqqyecf44qb3HTLLBO4eO0LDvP5AlyI2vK16AH49vngF7NSEMsshWD2pYU6DJsvDlP4SsnJmkUpw1MEE/32g==
+  dependencies:
+    "@lirx/utils" "^1.1.1"
+
+"@lirx/stream@latest":
+  version "0.8.0-dev.1680090709169"
+  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1680090709169.tgz#32c406d11d65ee03c5fef9d0685032c741462d47"
+  integrity sha512-VKuUSRftFLL8/GFTyybIVsy3CPNU0fDHkYN/6t1XpSCHgi/vej9hjMHEP/8s7xuMesirLHf5Icgtl8VrdoBlUg==
+  dependencies:
+    "@lirx/async-task" "^1.0.0"
+    "@lirx/utils" "^1.1.1-dev.1679314822168"
+
+"@lirx/utils@^1.1.1":
+  version "1.1.1"
+  resolved "http://localhost:4873/@lirx/utils/-/utils-1.1.1.tgz#78e1bcc6b8d961b680517797c6d8ebced6d10956"
+  integrity sha512-FIh/xx8aYJmTEhxwUtwESTbpecRn2qpbWHV5gAx4wDhe7gV/eAz7Ko6AU+tFNThX3DjN7aKA9apYZpvivjoCHA==
+
+"@lirx/utils@^1.1.1-dev.1679314822168", "@lirx/utils@latest":
+  version "1.1.1-dev.1679314822168"
+  resolved "http://localhost:4873/@lirx/utils/-/utils-1.1.1-dev.1679314822168.tgz#e0beb92d4bf21599eca38afe80cfd95ffd1e7092"
+  integrity sha512-gV1hUmtw0IkA87on+h+X8xYTJlY77z84uJ748vxBAmytvQx0Mt96xTk02qqeW4cr+BQUo51pEDNggjxFpSx7sQ==
+
+"@thingmate/mqtt@latest":
+  version "1.0.0-dev.1680091067891"
+  resolved "http://localhost:4873/@thingmate/mqtt/-/mqtt-1.0.0-dev.1680091067891.tgz#2c337418115db5738dee720617a21fa3506bff72"
+  integrity sha512-y/tnnMyjGRaTtEWs3Hxi7pmhaIcu1fsQP6rYSZv5oVP663tUqh03kQC1+AjB6hp7zDXLSOuuRBzOLS6SaDgfvA==
+  dependencies:
+    "@lifaon/number-types" latest
+    "@lifaon/traits" "^3.0.0"
+    "@lirx/async-task" latest
+    "@lirx/core" latest
+    "@lirx/stream" latest
+    "@lirx/utils" latest
+
+"@thingmate/wot-scripting-api@^1.0.0-dev.1680094088221":
+  version "1.0.0-dev.1680094088221"
+  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1680094088221.tgz#27b19d875e2395575b41de20537c832844fbfe03"
+  integrity sha512-UdNwZTPU2YC34Yg1MHyeIPttVz2/7iopAtuddo18hT/DbIZ8fgBl2wpuQv0odSw1Jo3W5eMn2MISM9vpx7RTDQ==
+  dependencies:
+    "@lirx/async-task" "^1.0.0"
+    "@lirx/stream" latest

@@ -7,9 +7,15 @@ import {
   IAsyncTaskSuccessFunction,
 } from '@lirx/async-task';
 import { IMqttClient, IStandardMqttPublishPacket } from '@thingmate/mqtt';
-import { getMerossApplianceDeviceIdSubscribeTopic, IGetMerossApplianceDeviceIdSubscribeTopicOptions } from '../../shared/get-meross-appliance-device-id-subscribe-topic';
-import { getMerossAppUserIdAppIdSubscribeTopic, IGetMerossAppUserIdAppIdSubscribeTopicOptions } from '../../shared/get-meross-app-user-id-app-id-subscribe-topic';
 import { IHavingUserKey } from '../../../types/user-key.type';
+import {
+  getMerossAppUserIdAppIdSubscribeTopic,
+  IGetMerossAppUserIdAppIdSubscribeTopicOptions,
+} from '../../shared/get-meross-app-user-id-app-id-subscribe-topic';
+import {
+  getMerossApplianceDeviceIdSubscribeTopic,
+  IGetMerossApplianceDeviceIdSubscribeTopicOptions,
+} from '../../shared/get-meross-appliance-device-id-subscribe-topic';
 import { IGenericMerossPacket } from '../meross-packet.type';
 import { verifyMerossPacket } from '../verify-meross-packet';
 

@@ -1,1 +1,1 @@
-export * from './mss310/index';
+export * from './mss310';

@@ -1,4 +1,4 @@
-export const enum MEROSS_TOGGLE_STATE {
+export enum MEROSS_TOGGLE_STATE {
   OFF = 0,
   ON = 1,
 }

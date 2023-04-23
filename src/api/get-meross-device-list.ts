@@ -1,10 +1,9 @@
-import { Abortable, AsyncTask } from '@lirx/async-task';
+import { Abortable, AsyncTask, IAbortableOptions } from '@lirx/async-task';
 import { MEROSS_DEVICE_LIST_URL } from './constants/meross-device-list-url.constant';
-import { fetchMerossAPI } from './fetch-meross-api';
+import { fetchMerossAPI } from './helpers/fetch-meross-api';
 
 export interface IMerossDeviceListRequestDataJSON {
 }
-
 
 export interface IMerossDeviceListResponseDataDeviceChanelJSON {
 
@@ -36,9 +35,8 @@ export interface IMerossDeviceListResponseDataDeviceJSON {
 
 export type IMerossDeviceListResponseDataJSON = IMerossDeviceListResponseDataDeviceJSON[];
 
-export interface IGetMerossDeviceListOptions {
+export interface IGetMerossDeviceListOptions extends IAbortableOptions {
   token: string;
-  abortable: Abortable;
 }
 
 export function getMerossDeviceList(

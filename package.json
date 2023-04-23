@@ -14,20 +14,15 @@
   "dependencies": {
     "@lifaon/md5": "^1.0.0",
     "@lirx/async-task": "^1.0.0",
-    "@thingmate/mqtt": "^1.0.0",
-    "@thingmate/wot-scripting-api": "^1.0.0",
-    "@lirx/stream": "^0.8.0"
+    "@lirx/stream": "latest",
+    "@thingmate/mqtt": "latest",
+    "@thingmate/wot-scripting-api": "^1.0.0-dev.1680094088221"
   },
   "_dependencies": {
     "@lifaon/md5": "^1.0.0",
-    "@lirx/async-task": "^0.8.0",
-    "@thingmate/mqtt": "^1.0.0",
-    "@thingmate/wot-scripting-api": "^1.0.0"
-  },
-  "linkedDependencies": [
-    "@lirx/async-task",
-    "@lirx/stream",
-    "@thingmate/mqtt",
-    "@thingmate/wot-scripting-api"
-  ]
+    "@lirx/async-task": "^1.0.0",
+    "@lirx/stream": "^0.8.0-dev.1680081985229",
+    "@thingmate/mqtt": "^1.0.0-dev.1679324690626",
+    "@thingmate/wot-scripting-api": "^1.0.0-dev.1680080895331"
+  }
 }

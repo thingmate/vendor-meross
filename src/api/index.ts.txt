@@ -1,4 +1,4 @@
 export * from './constants/index';
-export * from './fetch-meross-api';
+export * from './helpers/index';
 export * from './get-meross-device-list';
 export * from './perform-meross-login';

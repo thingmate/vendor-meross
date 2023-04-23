@@ -1,7 +1,7 @@
-import { Abortable, AsyncTask } from '@lirx/async-task';
-import { MEROSS_LOGIN_URL } from './constants/meross-login-url.constant';
+import { AsyncTask, IAbortableOptions } from '@lirx/async-task';
 import { IHavingUserKey } from '../types/user-key.type';
-import { fetchMerossAPI } from './fetch-meross-api';
+import { MEROSS_LOGIN_URL } from './constants/meross-login-url.constant';
+import { fetchMerossAPI } from './helpers/fetch-meross-api';
 
 export interface IMerossLoginRequestDataMobileInfoJSON {
   deviceModel: string;
@@ -23,10 +23,9 @@ export interface IMerossLoginResponseDataJSON extends IHavingUserKey {
   token: string;
 }
 
-export interface IPerformMerossLoginOptions {
+export interface IPerformMerossLoginOptions extends IAbortableOptions {
   email: string;
   password: string;
-  abortable: Abortable;
 }
 
 export function performMerossLogin(

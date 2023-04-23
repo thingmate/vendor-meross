@@ -1,1 +1,2 @@
-export * from './init-meross-mss-310-exposed-thing';
+export * from './functions';
+export * from './create-meross-mss310-smart-plug-thing';

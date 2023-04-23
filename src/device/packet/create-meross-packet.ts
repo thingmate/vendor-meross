@@ -1,6 +1,9 @@
 import { md5 } from '@lifaon/md5';
-import { getMerossAppUserIdAppIdSubscribeTopic, IGetMerossAppUserIdAppIdSubscribeTopicOptions } from '../shared/get-meross-app-user-id-app-id-subscribe-topic';
 import { IHavingUserKey } from '../../types/user-key.type';
+import {
+  getMerossAppUserIdAppIdSubscribeTopic,
+  IGetMerossAppUserIdAppIdSubscribeTopicOptions,
+} from '../shared/get-meross-app-user-id-app-id-subscribe-topic';
 import { IMerossPacket, IMerossPacketHeader } from './meross-packet.type';
 
 export interface ICreateMerossPacketOptions<GPayload> extends //

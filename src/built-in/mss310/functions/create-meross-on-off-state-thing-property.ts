@@ -1,11 +1,6 @@
 import { Abortable, AsyncTask } from '@lirx/async-task';
-import { mapPushPipeWithBackPressure, mergePushSourceWithBackPressure } from '@lirx/stream';
-import { IPushSinkWithBackPressure } from '@lirx/stream/src/push-sink/push-sink-with-back-pressure.type';
-import { IPushSourceWithBackPressure } from '@lirx/stream/src/push-source/push-source-with-back-pressure.type';
-import { IOnOffState, ThingProperty } from '@thingmate/wot-scripting-api';
-import {
-  IOnOffStateThingProperty
-} from '@thingmate/wot-scripting-api/src/devices/shared/on-off-state/thing-config/on-off-state-thing-property.type';
+import { mapPushPipeWithBackPressure, mergePushSourceWithBackPressure, IPushSourceWithBackPressure, IPushSinkWithBackPressure } from '@lirx/stream';
+import { IOnOffState, ThingProperty, IOnOffStateThingProperty } from '@thingmate/wot-scripting-api';
 import {
   createMerossApplianceControlToggleXAbilityListener,
   getMerossApplianceControlToggleX,

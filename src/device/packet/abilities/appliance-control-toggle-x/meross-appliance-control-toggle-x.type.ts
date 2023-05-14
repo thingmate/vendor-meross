@@ -3,10 +3,8 @@ import {
   IPushSourceWithBackPressure,
   MAP_FILTER_PUSH_PIPE_WITH_BACK_PRESSURE_DISCARD,
   mapFilterPushPipeWithBackPressure,
-} from '@lirx/stream';
-import {
   IMapFilterPushPipeWithBackPressureFunctionReturn,
-} from '@lirx/stream/src/push-pipe/built-in/map-filter/map-filter-push-pipe-with-back-pressure';
+} from '@lirx/stream';
 import { createAndSendMerossPacketWithTimeout } from '../../create-and-send-meross-packet-with-timeout';
 import { IGenericMerossPacket } from '../../meross-packet.type';
 import {

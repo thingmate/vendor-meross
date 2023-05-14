@@ -17,35 +17,30 @@
   resolved "http://localhost:4873/@lifaon/traits/-/traits-3.0.0.tgz#a02cb8b908c2f446c873fba7ec6482f0722eca03"
   integrity sha512-IyGfjYpwQK5wUUUYVAK8zgTZ/CF6rn/mCPAuQBdp0ZEzmQns58FBJdWPAm5IlILydzgx7OMjBdXFjfUnl9hN2w==
 
-"@lirx/async-task@^1.0.0", "@lirx/async-task@latest":
-  version "1.0.0"
-  resolved "http://localhost:4873/@lirx/async-task/-/async-task-1.0.0.tgz#f07b12b6ca53caa6acce16128786b90a9a920add"
-  integrity sha512-xik1vVwQnDdpFp9tGLJp2BI4vMoRxa84TXhY3ztCBRXPYyFjQoq8tTR/2r169E2JV1wj634DgKt30SpIMA6rDA==
+"@lirx/async-task@latest":
+  version "1.2.0"
+  resolved "http://localhost:4873/@lirx/async-task/-/async-task-1.2.0.tgz#3358038f78d63f3eecad0f10e4c6e019dab710b8"
+  integrity sha512-OTT0FYeYrRPmmOe/sgTt6nTOiL+r3Hq6Fbqnkh4L8ca7rGr1HAD5xZZ/7ym7lhIfnMSRyZbuXRatPqM2qMZurA==
 
 "@lirx/core@latest":
-  version "1.3.0-dev.1679328963381"
-  resolved "http://localhost:4873/@lirx/core/-/core-1.3.0-dev.1679328963381.tgz#d7bfd6991b1ca0ef45af9dd7d2b7bddfdaad550d"
-  integrity sha512-djPqqyecf44qb3HTLLBO4eO0LDvP5AlyI2vK16AH49vngF7NSEMsshWD2pYU6DJsvDlP4SsnJmkUpw1MEE/32g==
+  version "1.4.0-dev.1683557786665"
+  resolved "http://localhost:4873/@lirx/core/-/core-1.4.0-dev.1683557786665.tgz#10fa651f8a7f91fc21f4576af8b8961a1b683884"
+  integrity sha512-ejxmwBRBJM7h26whfaKkN2QEXp0/rJ1ORbq0VWZ9lcY5VqfGWLAD5Fu52z5z1SB6jPU4H8vAEiqfKg7xez8ANA==
   dependencies:
-    "@lirx/utils" "^1.1.1"
+    "@lirx/utils" latest
 
 "@lirx/stream@latest":
-  version "0.8.0-dev.1680090709169"
-  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1680090709169.tgz#32c406d11d65ee03c5fef9d0685032c741462d47"
-  integrity sha512-VKuUSRftFLL8/GFTyybIVsy3CPNU0fDHkYN/6t1XpSCHgi/vej9hjMHEP/8s7xuMesirLHf5Icgtl8VrdoBlUg==
+  version "0.8.0-dev.1684078265639"
+  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1684078265639.tgz#29b26c15355cbf0e9b95ad62decb2a32d98e88f8"
+  integrity sha512-bIUojQcUIF2gB585ly/Om45N6qmN5AmaNRSQ2CmvxP1QR7jVl3NcA5kvFOawIVaif3HjZ8PRQboasn29i8LCMg==
   dependencies:
-    "@lirx/async-task" "^1.0.0"
-    "@lirx/utils" "^1.1.1-dev.1679314822168"
+    "@lirx/async-task" latest
+    "@lirx/utils" latest
 
-"@lirx/utils@^1.1.1":
+"@lirx/utils@latest":
   version "1.1.1"
   resolved "http://localhost:4873/@lirx/utils/-/utils-1.1.1.tgz#78e1bcc6b8d961b680517797c6d8ebced6d10956"
   integrity sha512-FIh/xx8aYJmTEhxwUtwESTbpecRn2qpbWHV5gAx4wDhe7gV/eAz7Ko6AU+tFNThX3DjN7aKA9apYZpvivjoCHA==
-
-"@lirx/utils@^1.1.1-dev.1679314822168", "@lirx/utils@latest":
-  version "1.1.1-dev.1679314822168"
-  resolved "http://localhost:4873/@lirx/utils/-/utils-1.1.1-dev.1679314822168.tgz#e0beb92d4bf21599eca38afe80cfd95ffd1e7092"
-  integrity sha512-gV1hUmtw0IkA87on+h+X8xYTJlY77z84uJ748vxBAmytvQx0Mt96xTk02qqeW4cr+BQUo51pEDNggjxFpSx7sQ==
 
 "@thingmate/mqtt@latest":
   version "1.0.0-dev.1680091067891"
@@ -59,10 +54,10 @@
     "@lirx/stream" latest
     "@lirx/utils" latest
 
-"@thingmate/wot-scripting-api@^1.0.0-dev.1680094088221":
-  version "1.0.0-dev.1680094088221"
-  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1680094088221.tgz#27b19d875e2395575b41de20537c832844fbfe03"
-  integrity sha512-UdNwZTPU2YC34Yg1MHyeIPttVz2/7iopAtuddo18hT/DbIZ8fgBl2wpuQv0odSw1Jo3W5eMn2MISM9vpx7RTDQ==
+"@thingmate/wot-scripting-api@latest":
+  version "1.0.0-dev.1684079223214"
+  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1684079223214.tgz#b960da48ff92a640f8800e172ec8983208c8988c"
+  integrity sha512-bpwL1egPtAYfY0+BfJguMvbgDdynrMBHYHKuvde6zilpRrofnI750rV5FmLWXHS6QAJrfEUAGGO6IDZxVeyoBQ==
   dependencies:
-    "@lirx/async-task" "^1.0.0"
+    "@lirx/async-task" latest
     "@lirx/stream" latest

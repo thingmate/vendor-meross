@@ -52,8 +52,7 @@ export interface IMerossApplianceControlToggleXAbilitySETPayload {
   togglex: IMerossToggleX;
 }
 
-export interface IMerossApplianceControlToggleXAbilitySETACKPayload {
-}
+export type IMerossApplianceControlToggleXAbilitySETACKPayload = void;
 
 export type ISetMerossApplianceControlToggleXOptions = ICreateAndSendMerossPacketOptionsForAbility<IMerossApplianceControlToggleXAbilitySETPayload>;
 

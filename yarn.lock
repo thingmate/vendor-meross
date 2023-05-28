@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@lifaon/color@latest":
+  version "1.0.0-dev.1684246539374"
+  resolved "http://localhost:4873/@lifaon/color/-/color-1.0.0-dev.1684246539374.tgz#c613667b5b588050575674faaad4d9bac90da588"
+  integrity sha512-lWViOCHtc4yTWrmNDHEtTRjQvXu9S2eSMpuJ/h9hX8EpM2TYCJM+t/HESKAB4IbtHeTzvmxTX5TFsKHawASnsA==
+
 "@lifaon/md5@^1.0.0":
   version "1.0.0"
   resolved "http://localhost:4873/@lifaon/md5/-/md5-1.0.0.tgz#f83ea543d408b44cca912d9c58ba1a939c678f3c"
@@ -30,9 +35,9 @@
     "@lirx/utils" latest
 
 "@lirx/stream@latest":
-  version "0.8.0-dev.1684078265639"
-  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1684078265639.tgz#29b26c15355cbf0e9b95ad62decb2a32d98e88f8"
-  integrity sha512-bIUojQcUIF2gB585ly/Om45N6qmN5AmaNRSQ2CmvxP1QR7jVl3NcA5kvFOawIVaif3HjZ8PRQboasn29i8LCMg==
+  version "0.8.0-dev.1684250524127"
+  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1684250524127.tgz#d34a782c987878b99dfbe52163e6b69cc17d498f"
+  integrity sha512-6TFArjHbBVFmDiibu0C268H6+x4p0H+4Ap6Qo82d946tmuFG46s11suld+xx6gk/fHteFz52JcrRbOaXhrnX5g==
   dependencies:
     "@lirx/async-task" latest
     "@lirx/utils" latest
@@ -55,9 +60,10 @@
     "@lirx/utils" latest
 
 "@thingmate/wot-scripting-api@latest":
-  version "1.0.0-dev.1684079223214"
-  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1684079223214.tgz#b960da48ff92a640f8800e172ec8983208c8988c"
-  integrity sha512-bpwL1egPtAYfY0+BfJguMvbgDdynrMBHYHKuvde6zilpRrofnI750rV5FmLWXHS6QAJrfEUAGGO6IDZxVeyoBQ==
+  version "1.0.0-dev.1684252557526"
+  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1684252557526.tgz#a7b1bc5daaec5650136b7e5ee00cd90885dc0194"
+  integrity sha512-LbicGax5q8IXsqLmACPw4+7wiaWdITq09RsccOOsyJ/E9eZau0EzIKcl4QczmIWSxXr99JVQrkILiLXlW+p0cw==
   dependencies:
+    "@lifaon/color" latest
     "@lirx/async-task" latest
     "@lirx/stream" latest

@@ -1,6 +1,6 @@
 import { Abortable, AsyncTask } from '@lirx/async-task';
-import { mapPushPipeWithBackPressure, mergePushSourceWithBackPressure, IPushSourceWithBackPressure, IPushSinkWithBackPressure } from '@lirx/stream';
-import { IOnOffState, ThingProperty, IOnOffStateThingProperty } from '@thingmate/wot-scripting-api';
+import { IPushSourceWithBackPressure, mapPushPipeWithBackPressure } from '@lirx/stream';
+import { IOnOffState, IOnOffStateThingProperty, ThingProperty } from '@thingmate/wot-scripting-api';
 import {
   createMerossApplianceControlToggleXAbilityListener,
   getMerossApplianceControlToggleX,
@@ -57,14 +57,11 @@ export function createMerossOnOffStateThingProperty(
         },
       },
       abortable,
-    })
-      .successful(() => {
-        // TODO emit change
-      });
+    });
   };
 
   const observe = (): IPushSourceWithBackPressure<IOnOffState> => {
-    const smartPlugState$ = mapPushPipeWithBackPressure(
+    return mapPushPipeWithBackPressure(
       createMerossApplianceControlToggleXAbilityListener(deviceOptions),
       (
         payload: IMerossApplianceControlToggleXAbilityPUSHPayload,
@@ -72,19 +69,6 @@ export function createMerossOnOffStateThingProperty(
         return merossToggleStateToOnOffState(payload.togglex[channel].onoff);
       },
     );
-
-    // TODO create helper
-    const currentSmartPlugState$$ = (sink: IPushSinkWithBackPressure<IOnOffState>, abortable: Abortable): AsyncTask<void> => {
-      return read(abortable)
-        .successful((state: IOnOffState, abortable: Abortable) => {
-          return sink(state, abortable);
-        });
-    };
-
-    return mergePushSourceWithBackPressure([
-      currentSmartPlugState$$,
-      smartPlugState$,
-    ]);
   };
 
   return new ThingProperty<IOnOffState>({

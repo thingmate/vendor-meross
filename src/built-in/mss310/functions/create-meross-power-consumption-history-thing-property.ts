@@ -44,5 +44,6 @@ export function createMerossPowerConsumptionHistoryThingProperty(
 
   return new ThingProperty<IPowerConsumptionHistory[]>({
     read,
+    minObserveRefreshTime: 10000,
   });
 }

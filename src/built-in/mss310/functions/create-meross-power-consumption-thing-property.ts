@@ -1,6 +1,5 @@
 import { Abortable, AsyncTask } from '@lirx/async-task';
 import {
-  createThingPropertyObserveUsingReadLoopFunction,
   IPowerConsumption,
   IPowerConsumptionThingProperty,
   ThingProperty,
@@ -52,13 +51,9 @@ export function createMerossPowerConsumptionThingProperty(
       });
   };
 
-  const observe = createThingPropertyObserveUsingReadLoopFunction<IPowerConsumption>({
-    read,
-    defaultRefreshTime: 10000, // consumption on mss310 has a max refreshTime of 10s
-  });
-
   return new ThingProperty<IPowerConsumption>({
     read,
-    observe,
+    // consumption on mss310 has a max refreshTime of 10s
+    minObserveRefreshTime: 10000,
   });
 }

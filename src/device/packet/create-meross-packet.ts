@@ -1,5 +1,5 @@
 import { md5 } from '@lifaon/md5';
-import { IHavingUserKey } from '../../types/user-key.type';
+import { IHavingUserKey } from '../../types/having-user-key.type';
 import {
   getMerossAppUserIdAppIdSubscribeTopic,
   IGetMerossAppUserIdAppIdSubscribeTopicOptions,

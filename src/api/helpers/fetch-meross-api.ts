@@ -1,11 +1,12 @@
 import { md5 } from '@lifaon/md5';
-import { asyncFetchJSON, AsyncTask, IAbortableOptions, IAsyncTaskConstraint } from '@lirx/async-task';
+import { asyncFetchJSON, AsyncTask, IAbortableOptions, IAsyncFetchJSONFunction, IAsyncTaskConstraint } from '@lirx/async-task';
 import { MEROSS_SECRET } from '../constants/meross-secret.constant';
 
 export interface IFetchMerossAPIOptions extends IAbortableOptions {
   url: URL | string;
   data: object;
   token?: string;
+  fetch?: IAsyncFetchJSONFunction;
 }
 
 export interface IFetchMerossAPIResponseJSON<GData> {
@@ -21,6 +22,7 @@ export function fetchMerossAPI<GData extends IAsyncTaskConstraint<GData>>(
     url,
     data,
     token,
+    fetch = asyncFetchJSON,
     abortable,
   }: IFetchMerossAPIOptions,
 ): AsyncTask<GData> {
@@ -54,7 +56,7 @@ export function fetchMerossAPI<GData extends IAsyncTaskConstraint<GData>>(
     body: JSON.stringify(payload),
   });
 
-  return asyncFetchJSON<IFetchMerossAPIResponseJSON<GData>>(
+  return fetch<IFetchMerossAPIResponseJSON<GData>>(
     request,
     void 0,
     abortable,

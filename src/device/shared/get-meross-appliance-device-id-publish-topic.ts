@@ -1,4 +1,4 @@
-import { IHavingDeviceId } from '../../types/device-id.type';
+import { IHavingDeviceId } from '../../types/having-device-id.type';
 
 export interface IGetMerossApplianceDeviceIdPublishTopicOptions extends IHavingDeviceId {
 }

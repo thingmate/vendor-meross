@@ -1,0 +1,1 @@
+export * from './meross-power-consumption-thing-property.class';

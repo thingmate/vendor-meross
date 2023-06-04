@@ -1,7 +1,7 @@
-import { AsyncTask, IAbortableOptions } from '@lirx/async-task';
-import { IHavingUserKey } from '../types/user-key.type';
+import { AsyncTask } from '@lirx/async-task';
+import { IHavingUserKey } from '../types/having-user-key.type';
 import { MEROSS_LOGIN_URL } from './constants/meross-login-url.constant';
-import { fetchMerossAPI } from './helpers/fetch-meross-api';
+import { fetchMerossAPI, IFetchMerossAPIOptions } from './helpers/fetch-meross-api';
 
 export interface IMerossLoginRequestDataMobileInfoJSON {
   deviceModel: string;
@@ -23,7 +23,7 @@ export interface IMerossLoginResponseDataJSON extends IHavingUserKey {
   token: string;
 }
 
-export interface IPerformMerossLoginOptions extends IAbortableOptions {
+export interface IPerformMerossLoginOptions extends Omit<IFetchMerossAPIOptions, 'data' | 'url'> {
   email: string;
   password: string;
 }
@@ -32,7 +32,7 @@ export function performMerossLogin(
   {
     email,
     password,
-    abortable,
+    ...options
   }: IPerformMerossLoginOptions,
 ): AsyncTask<IMerossLoginResponseDataJSON> {
   const logIdentifier = '0b11b194f83724b614a6975b112f63cee2f098-8125-40c7-a280-5115913d9887';
@@ -50,8 +50,8 @@ export function performMerossLogin(
   };
 
   return fetchMerossAPI<IMerossLoginResponseDataJSON>({
+    ...options,
     url: MEROSS_LOGIN_URL,
     data,
-    abortable,
   });
 }

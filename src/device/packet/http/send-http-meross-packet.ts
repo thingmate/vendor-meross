@@ -1,5 +1,5 @@
 import { asyncFetchJSON, AsyncTask, IAbortableOptions, IAsyncTaskConstraint } from '@lirx/async-task';
-import { IHavingUserKey } from '../../../types/user-key.type';
+import { IHavingUserKey } from '../../../types/having-user-key.type';
 import { IGenericMerossPacket } from '../meross-packet.type';
 import { verifyMerossPacket } from '../verify-meross-packet';
 

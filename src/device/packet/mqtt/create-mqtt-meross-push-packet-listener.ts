@@ -1,7 +1,7 @@
 import { IAsyncTaskInput } from '@lirx/async-task';
 import { IPushSourceWithBackPressure, mapPushPipeWithBackPressure } from '@lirx/stream';
 import { IMqttClient, IStandardMqttPublishPacket } from '@thingmate/mqtt';
-import { IHavingUserKey } from '../../../types/user-key.type';
+import { IHavingUserKey } from '../../../types/having-user-key.type';
 import {
   getMerossAppUserIdSubscribeTopic,
   IGetMerossAppUserIdSubscribeTopicOptions,

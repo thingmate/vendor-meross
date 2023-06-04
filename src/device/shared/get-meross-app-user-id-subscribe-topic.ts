@@ -1,4 +1,4 @@
-import { IHavingUserId } from '../../types/user-id.type';
+import { IHavingUserId } from '../../types/having-user-id.type';
 
 export interface IGetMerossAppUserIdSubscribeTopicOptions extends IHavingUserId {
 }

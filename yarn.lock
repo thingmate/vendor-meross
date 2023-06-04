@@ -3,9 +3,16 @@
 
 
 "@lifaon/color@latest":
-  version "1.0.0-dev.1684246539374"
-  resolved "http://localhost:4873/@lifaon/color/-/color-1.0.0-dev.1684246539374.tgz#c613667b5b588050575674faaad4d9bac90da588"
-  integrity sha512-lWViOCHtc4yTWrmNDHEtTRjQvXu9S2eSMpuJ/h9hX8EpM2TYCJM+t/HESKAB4IbtHeTzvmxTX5TFsKHawASnsA==
+  version "1.0.0-dev.1685285308504"
+  resolved "http://localhost:4873/@lifaon/color/-/color-1.0.0-dev.1685285308504.tgz#8b40293721d07528f1b9c8bac7304ee739b1f2e6"
+  integrity sha512-fnQhR+AVDGmSgrYweFvTfvD4AVC0meTlc/CJ8j48Oabq2/aypRaQCo7N2CUbLut/n1Y5E6fcQe/FzLATjjFmXg==
+  dependencies:
+    "@lifaon/math" latest
+
+"@lifaon/math@latest":
+  version "1.1.0-dev.1685101205890"
+  resolved "http://localhost:4873/@lifaon/math/-/math-1.1.0-dev.1685101205890.tgz#02c3764345ee435729974ffcd40d04125fdaa398"
+  integrity sha512-R5SRQbe8QaZrOsaE6ky9dyp+IVzaQBRH0qJxYb/xXmWF/t34zru2vBtuyFyEVW1BusFpbal6EM7F6yhgPjx/UA==
 
 "@lifaon/md5@^1.0.0":
   version "1.0.0"
@@ -23,29 +30,29 @@
   integrity sha512-IyGfjYpwQK5wUUUYVAK8zgTZ/CF6rn/mCPAuQBdp0ZEzmQns58FBJdWPAm5IlILydzgx7OMjBdXFjfUnl9hN2w==
 
 "@lirx/async-task@latest":
-  version "1.2.0"
-  resolved "http://localhost:4873/@lirx/async-task/-/async-task-1.2.0.tgz#3358038f78d63f3eecad0f10e4c6e019dab710b8"
-  integrity sha512-OTT0FYeYrRPmmOe/sgTt6nTOiL+r3Hq6Fbqnkh4L8ca7rGr1HAD5xZZ/7ym7lhIfnMSRyZbuXRatPqM2qMZurA==
+  version "1.2.0-dev.1685889865851"
+  resolved "http://localhost:4873/@lirx/async-task/-/async-task-1.2.0-dev.1685889865851.tgz#0fdc215354bd9b088452ef32bc8cae343fe4b529"
+  integrity sha512-hNdKSUzHwyh7wJxlcYXL+hIGbh+HmgBraDVbJGjzY6pAdaieNM8hgNp/HCEEQMvD2aAl3wwI6SlCz46dji3t7Q==
 
 "@lirx/core@latest":
-  version "1.4.0-dev.1683557786665"
-  resolved "http://localhost:4873/@lirx/core/-/core-1.4.0-dev.1683557786665.tgz#10fa651f8a7f91fc21f4576af8b8961a1b683884"
-  integrity sha512-ejxmwBRBJM7h26whfaKkN2QEXp0/rJ1ORbq0VWZ9lcY5VqfGWLAD5Fu52z5z1SB6jPU4H8vAEiqfKg7xez8ANA==
+  version "1.4.0-dev.1685689865278"
+  resolved "http://localhost:4873/@lirx/core/-/core-1.4.0-dev.1685689865278.tgz#f964ad0f7e126c3a3c1fefb5643a7107cf798e73"
+  integrity sha512-iJvzdemk/buvYTt93gaTPSDonhXj8Ph4xj3Cq4DlPItVtbHa0gEXVp3K/98YjCJJdTvzqSm/o7sz6YacMN4wRg==
   dependencies:
     "@lirx/utils" latest
 
 "@lirx/stream@latest":
-  version "0.8.0-dev.1684250524127"
-  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1684250524127.tgz#d34a782c987878b99dfbe52163e6b69cc17d498f"
-  integrity sha512-6TFArjHbBVFmDiibu0C268H6+x4p0H+4Ap6Qo82d946tmuFG46s11suld+xx6gk/fHteFz52JcrRbOaXhrnX5g==
+  version "0.8.0-dev.1685887964839"
+  resolved "http://localhost:4873/@lirx/stream/-/stream-0.8.0-dev.1685887964839.tgz#3f7e513b4666e01cf9262f1aa81ca0cb561a7fd6"
+  integrity sha512-yr6ikiKIkqITIJQgiA3slFotQHSaX0UYbBIDgVBQa1im8Xlw6hhPVxCodfY5BJ4/J2VcFCN69Y1ZNiJbzCVi/w==
   dependencies:
     "@lirx/async-task" latest
     "@lirx/utils" latest
 
 "@lirx/utils@latest":
-  version "1.1.1"
-  resolved "http://localhost:4873/@lirx/utils/-/utils-1.1.1.tgz#78e1bcc6b8d961b680517797c6d8ebced6d10956"
-  integrity sha512-FIh/xx8aYJmTEhxwUtwESTbpecRn2qpbWHV5gAx4wDhe7gV/eAz7Ko6AU+tFNThX3DjN7aKA9apYZpvivjoCHA==
+  version "1.1.2"
+  resolved "http://localhost:4873/@lirx/utils/-/utils-1.1.2.tgz#fcd44275563e6bf0ea0672bbf953f56c1fcdf609"
+  integrity sha512-tjVwiDXeEFm/t4sLSCmRbS23mS94g8w6DEF3HGN4JFgwUOLC5eZKBqy2+0F+jNLNVUZSkSCyPj6i+OI7RB9RRQ==
 
 "@thingmate/mqtt@latest":
   version "1.0.0-dev.1680091067891"
@@ -60,9 +67,9 @@
     "@lirx/utils" latest
 
 "@thingmate/wot-scripting-api@latest":
-  version "1.0.0-dev.1684252557526"
-  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1684252557526.tgz#a7b1bc5daaec5650136b7e5ee00cd90885dc0194"
-  integrity sha512-LbicGax5q8IXsqLmACPw4+7wiaWdITq09RsccOOsyJ/E9eZau0EzIKcl4QczmIWSxXr99JVQrkILiLXlW+p0cw==
+  version "1.0.0-dev.1685814942303"
+  resolved "http://localhost:4873/@thingmate/wot-scripting-api/-/wot-scripting-api-1.0.0-dev.1685814942303.tgz#0769da2ad8a5e0d975c9db8a53cee01d78b07c24"
+  integrity sha512-LIgSTLeqAN3FNpKyIQQIFNW7lxHhqBCe+jQKAcdEr0uu5tOyl939R3KnVwpF1fFf9oCLtfJOqKM6ugOp+M70pg==
   dependencies:
     "@lifaon/color" latest
     "@lirx/async-task" latest

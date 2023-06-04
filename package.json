@@ -11,6 +11,9 @@
   "license": "MIT",
   "access": "public",
   "sideEffects": false,
+  "scripts": {
+    "reinstall": "rm -rf ./node_modules && rm -f ./yarn.lock && yarn install"
+  },
   "dependencies": {
     "@lifaon/md5": "^1.0.0",
     "@lirx/async-task": "latest",

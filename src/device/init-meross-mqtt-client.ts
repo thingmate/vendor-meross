@@ -1,9 +1,9 @@
 import { md5 } from '@lifaon/md5';
 import { Abortable, AsyncTask, IAbortableOptions } from '@lirx/async-task';
 import { IMqttProtocolVersion, IWebSocketMqttClient, openWebSocketMqttClient } from '@thingmate/mqtt';
-import { IHavingAppId } from '../types/app-id.type';
-import { IHavingUserId } from '../types/user-id.type';
-import { IHavingUserKey } from '../types/user-key.type';
+import { IHavingAppId } from '../types/having-app-id.type';
+import { IHavingUserId } from '../types/having-user-id.type';
+import { IHavingUserKey } from '../types/having-user-key.type';
 import { getMerossAppUserIdAppIdSubscribeTopic } from './shared/get-meross-app-user-id-app-id-subscribe-topic';
 import { getMerossAppUserIdSubscribeTopic } from './shared/get-meross-app-user-id-subscribe-topic';
 

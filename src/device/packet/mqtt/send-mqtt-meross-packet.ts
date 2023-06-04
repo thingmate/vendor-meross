@@ -7,7 +7,7 @@ import {
   IAsyncTaskSuccessFunction,
 } from '@lirx/async-task';
 import { IMqttClient, IStandardMqttPublishPacket } from '@thingmate/mqtt';
-import { IHavingUserKey } from '../../../types/user-key.type';
+import { IHavingUserKey } from '../../../types/having-user-key.type';
 import {
   getMerossAppUserIdAppIdSubscribeTopic,
   IGetMerossAppUserIdAppIdSubscribeTopicOptions,

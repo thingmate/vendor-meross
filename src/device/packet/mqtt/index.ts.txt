@@ -1,3 +1,4 @@
 export * from './create-and-send-mqtt-meross-packet';
+export * from './create-and-send-mqtt-meross-packet-with-timeout';
 export * from './create-mqtt-meross-push-packet-listener';
 export * from './send-mqtt-meross-packet';

@@ -7,17 +7,7 @@ import { IHavingUserKey } from '../types/having-user-key.type';
 import { getMerossAppUserIdAppIdSubscribeTopic } from './shared/get-meross-app-user-id-app-id-subscribe-topic';
 import { getMerossAppUserIdSubscribeTopic } from './shared/get-meross-app-user-id-subscribe-topic';
 
-export interface IForgeWebSocketUrlFunction {
-  (
-    url: URL,
-  ): URL;
-}
-
-export const DEFAULT_FORGE_WEBSOCKET_URL_FUNCTION: IForgeWebSocketUrlFunction = ((url: URL): URL => {
-  return url;
-});
-
-/*---*/
+export type IOpenWebSocketMqttClientFunction = typeof openWebSocketMqttClient;
 
 export interface IInitMerossMqttClientOptions extends //
   IHavingUserKey,
@@ -27,7 +17,7 @@ export interface IInitMerossMqttClientOptions extends //
 {
   hostname?: string;
   port?: number;
-  forgeWebSocketUrlFunction?: IForgeWebSocketUrlFunction;
+  openWebSocketMqttClient?: IOpenWebSocketMqttClientFunction;
 }
 
 export interface IInitMerossMqttClientResult extends //
@@ -43,7 +33,7 @@ export function initMerossMqttClient(
   {
     hostname = 'eu-iot.meross.com',
     port = 2001,
-    forgeWebSocketUrlFunction = DEFAULT_FORGE_WEBSOCKET_URL_FUNCTION,
+    openWebSocketMqttClient: _openWebSocketMqttClient = openWebSocketMqttClient,
     userId,
     key,
     abortable,
@@ -57,8 +47,8 @@ export function initMerossMqttClient(
   const appId = md5(crypto.randomUUID());
   const clientId = `app:${appId}`;
 
-  return openWebSocketMqttClient({
-    url: forgeWebSocketUrlFunction(new URL(`wss://${hostname}:${port}/mqtt`)),
+  return _openWebSocketMqttClient({
+    url: new URL(`wss://${hostname}:${port}/mqtt`),
     abortable,
     protocolVersion,
   })

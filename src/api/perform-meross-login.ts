@@ -1,4 +1,6 @@
-import { AsyncTask } from '@lirx/async-task';
+import { md5 } from '@lifaon/md5';
+import { Abortable, AsyncTask } from '@lirx/async-task';
+import { retrieveOrGenerateEncryptedData } from '../crypto/store-encrypted-data';
 import { IHavingUserKey } from '../types/having-user-key.type';
 import { MEROSS_LOGIN_URL } from './constants/meross-login-url.constant';
 import { fetchMerossAPI, IFetchMerossAPIOptions } from './helpers/fetch-meross-api';
@@ -55,3 +57,60 @@ export function performMerossLogin(
     data,
   });
 }
+
+/*-------------*/
+
+export function getPerformMerossLoginCachedKey(
+  {
+    email,
+    password,
+  }: Pick<IPerformMerossLoginOptions, 'email' | 'password'>,
+): string {
+  // TODO maybe use crypto.subtle.digest
+  return 'meross-login-' + md5(
+    JSON.stringify({
+      email,
+      password,
+    }),
+  );
+}
+
+const PERFORM_MEROSS_LOGIN_CACHE = new Map<string, AsyncTask<IMerossLoginResponseDataJSON>>;
+
+export interface IPerformMerossLoginCachedOptions extends IPerformMerossLoginOptions {
+  fresh?: boolean;
+}
+
+export function performMerossLoginCached(
+  {
+    fresh = false,
+    ...options
+  }: IPerformMerossLoginCachedOptions,
+): AsyncTask<IMerossLoginResponseDataJSON> {
+  const key: string = getPerformMerossLoginCachedKey(options);
+
+  let task: AsyncTask<IMerossLoginResponseDataJSON> | undefined = PERFORM_MEROSS_LOGIN_CACHE.get(key);
+
+  if ((task === void 0) || fresh) {
+    task = retrieveOrGenerateEncryptedData({
+      ...options,
+      key,
+      dataFactory: (abortable: Abortable): AsyncTask<IMerossLoginResponseDataJSON> => {
+        return performMerossLogin({
+          ...options,
+          abortable,
+        });
+      },
+      abortable: Abortable.never,
+    })
+      .errored((error: unknown): never => {
+        PERFORM_MEROSS_LOGIN_CACHE.delete(key);
+        throw error;
+      });
+
+    PERFORM_MEROSS_LOGIN_CACHE.set(key, task);
+  }
+
+  return task.switchAbortable(options.abortable);
+}
+

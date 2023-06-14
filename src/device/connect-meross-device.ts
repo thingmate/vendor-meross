@@ -5,12 +5,13 @@ import {
   IDeviceOptionsForCreateAndSendMerossPacketAbility,
 } from './packet/abilities/shared/device-options-for-create-and-send-meross-packet-ability';
 import {
+  IPrepareDeviceOptionsForCreateAndSendMerossPacketAbilityOptions,
   prepareDeviceOptionsForCreateAndSendMerossPacketAbility,
 } from './packet/prepare-device-options-for-create-and-send-meross-packet-ability';
 
 export interface IConnectMerossDeviceOptions extends //
   IInitMerossMqttClientOptions,
-  Omit<IDeviceOptionsForCreateAndSendMerossPacketAbility, keyof IInitMerossMqttClientResult | keyof IInitMerossMqttClientOptions>
+  Omit<IPrepareDeviceOptionsForCreateAndSendMerossPacketAbilityOptions, keyof IInitMerossMqttClientResult | keyof IInitMerossMqttClientOptions>
 //
 {
 
@@ -19,21 +20,19 @@ export interface IConnectMerossDeviceOptions extends //
 export function connectMerossDevice(
   {
     deviceId,
-    forgeHttpMerossPacketUrlFunction,
     timeout,
+    retry,
     ...options
   }: IConnectMerossDeviceOptions,
 ): AsyncTask<IDeviceOptionsForCreateAndSendMerossPacketAbility> {
   return getMerossMqttClient(options)
     .successful((clientResult: IInitMerossMqttClientResult, abortable: Abortable): AsyncTask<IDeviceOptionsForCreateAndSendMerossPacketAbility> => {
-      return prepareDeviceOptionsForCreateAndSendMerossPacketAbility(
-        {
-          ...clientResult,
-          deviceId,
-          forgeHttpMerossPacketUrlFunction,
-          timeout,
-        },
+      return prepareDeviceOptionsForCreateAndSendMerossPacketAbility({
+        ...clientResult,
+        deviceId,
+        timeout,
+        retry,
         abortable,
-      );
+      });
     });
 }

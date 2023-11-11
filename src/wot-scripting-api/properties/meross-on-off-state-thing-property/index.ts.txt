@@ -1,1 +1,0 @@
-export * from './meross-on-off-state-thing-property.class';

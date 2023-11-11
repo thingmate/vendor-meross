@@ -1,4 +1,4 @@
-import { Abortable, AsyncTask, IAbortableOptions } from '@lirx/async-task';
+import { Abortable, AsyncTask, IAbortableOptions, asyncRetry } from '@lirx/async-task';
 import {
   IMerossApplianceSystemFirmwareAbilityGETACKPayload,
   IMerossApplianceSystemFirmwareAbilityGETPayload,
@@ -33,7 +33,7 @@ export function prepareDeviceOptionsForCreateAndSendMerossPacketAbility(
     payload: {},
   };
 
-  return AsyncTask.retry((abortable: Abortable): AsyncTask<IDeviceOptionsForCreateAndSendMerossPacketAbility> => {
+  return asyncRetry((abortable: Abortable): AsyncTask<IDeviceOptionsForCreateAndSendMerossPacketAbility> => {
     return createAndSendMqttMerossPacketWithTimeout<IMerossApplianceSystemFirmwareAbilityGETPayload, IMerossApplianceSystemFirmwareAbilityGETACKPayload>({
       ..._options,
       abortable,

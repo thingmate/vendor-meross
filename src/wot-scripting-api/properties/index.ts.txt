@@ -1,4 +1,0 @@
-export * from './meross-on-off-state-thing-property/index';
-export * from './meross-online-thing-property/index';
-export * from './meross-power-consumption-history-thing-property/index';
-export * from './meross-power-consumption-thing-property/index';

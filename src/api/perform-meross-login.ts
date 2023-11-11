@@ -111,6 +111,6 @@ export function performMerossLoginCached(
     PERFORM_MEROSS_LOGIN_CACHE.set(key, task);
   }
 
-  return task.switchAbortable(options.abortable);
+  return AsyncTask.switchAbortable(task, options.abortable);
 }
 

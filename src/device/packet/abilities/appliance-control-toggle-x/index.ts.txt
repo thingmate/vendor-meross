@@ -1,1 +1,0 @@
-export * from './meross-appliance-control-toggle-x.type';

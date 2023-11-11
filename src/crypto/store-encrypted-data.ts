@@ -1,5 +1,4 @@
-import { Abortable, AsyncTask, IAbortableOptions, IAsyncTaskFactory } from '@lirx/async-task';
-import { IAsyncTaskConstraint } from '@lirx/async-task/src/async-task/types/async-task-constraint.type';
+import { Abortable, AsyncTask, IAbortableOptions, IAsyncTaskFactory, IAsyncTaskConstraint } from '@lirx/async-task';
 
 // https://bradyjoslin.com/blog/encryption-webcrypto/
 

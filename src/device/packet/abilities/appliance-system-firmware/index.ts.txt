@@ -1,1 +1,0 @@
-export * from './meross-appliance-system-firmware.type';

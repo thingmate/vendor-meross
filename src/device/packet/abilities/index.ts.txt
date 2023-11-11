@@ -1,6 +1,0 @@
-export * from './appliance-control-consumption-x/index';
-export * from './appliance-control-electricity/index';
-export * from './appliance-control-toggle-x/index';
-export * from './appliance-system-firmware/index';
-export * from './appliance-system-hardware/index';
-export * from './shared/index';

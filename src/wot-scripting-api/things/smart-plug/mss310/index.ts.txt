@@ -1,1 +1,0 @@
-export * from './meross-mss310-smart-plug-thing.class';

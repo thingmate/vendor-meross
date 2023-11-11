@@ -20,5 +20,8 @@
     "@lirx/stream": "latest",
     "@thingmate/mqtt": "latest",
     "@thingmate/wot-scripting-api": "latest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3"
   }
 }

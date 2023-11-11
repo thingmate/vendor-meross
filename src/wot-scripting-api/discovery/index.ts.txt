@@ -1,1 +1,0 @@
-export * from './meross-thing-discovery.class';

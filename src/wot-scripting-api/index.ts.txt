@@ -1,5 +1,0 @@
-export * from './actions/index';
-export * from './discovery/index';
-export * from './properties/index';
-export * from './shared/index';
-export * from './things/index';

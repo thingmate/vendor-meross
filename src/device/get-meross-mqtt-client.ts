@@ -39,5 +39,5 @@ export function getMerossMqttClient(
     map.set(key, result);
   }
 
-  return result.switchAbortable(abortable);
+  return AsyncTask.switchAbortable(result, abortable);
 }

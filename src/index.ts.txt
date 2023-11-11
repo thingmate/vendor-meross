@@ -1,4 +1,0 @@
-export * from './api/index';
-export * from './device/index';
-export * from './types/index';
-export * from './wot-scripting-api/index';

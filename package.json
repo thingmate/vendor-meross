@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@lifaon/md5": "^1.0.0",
+    "@lifaon/deep-map": "latest",
     "@lirx/async-task": "latest",
+    "@lirx/async-store": "latest",
     "@lirx/stream": "latest",
     "@thingmate/mqtt": "latest",
     "@thingmate/wot-scripting-api": "latest"

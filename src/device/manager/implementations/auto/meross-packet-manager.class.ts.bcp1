@@ -1,0 +1,290 @@
+import { Abortable, AsyncTask, asyncTaskWithTimeout, IAbortableOptions, IAsyncTaskConstraint } from '@lirx/async-task';
+import { IPushSourceWithBackPressure } from '@lirx/stream';
+import { IUrlRewriter } from '@thingmate/wot-scripting-api';
+import { IAppId } from '../../types/app-id.type';
+import { IDeviceId } from '../../types/device-id.type';
+import { IUserId } from '../../types/user-id.type';
+import { IUserKey } from '../../types/user-key.type';
+import {
+  IMerossApplianceSystemFirmwareAbilityGETACKPayload,
+  IMerossApplianceSystemFirmwareAbilityGETPayload,
+  MEROSS_APPLIANCE_SYSTEM_FIRMWARE_ABILITY_NAME,
+} from './abilities/appliance-system-firmware/meross-appliance-system-firmware.type';
+import { createMerossPacket } from './functions/create-meross-packet';
+import { sendHttpMerossPacket } from './functions/http/send-http-meross-packet';
+import { sendMqttMerossPacket } from './functions/mqtt/send-mqtt-meross-packet';
+import { IGenericMerossPacket, IMerossPacket, IMerossPacketMethod } from './meross-packet.type';
+
+export interface IMerossPacketManagerMqttOptions {
+  readonly hostname?: string;
+  readonly port?: number;
+  readonly urlRewriter?: IUrlRewriter;
+  readonly unsubscribeDelay?: number;
+}
+
+export interface IMerossPacketManagerHttpOptions {
+  readonly hostname?: string;
+  readonly timeout?: number;
+  readonly failureRetryPeriod?: number;
+  readonly urlRewriter?: IUrlRewriter;
+}
+
+export interface IMerossPacketManagerOptions {
+  readonly mqtt?: IMerossPacketManagerMqttOptions;
+  readonly http?: IMerossPacketManagerHttpOptions;
+
+  // to send to packet
+  readonly key: IUserKey;
+  readonly userId: IUserId;
+  readonly appId: IAppId;
+  readonly deviceId: IDeviceId;
+}
+
+export interface IMerossPacketManagerQueryOptions extends IAbortableOptions {
+  readonly method: IMerossPacketMethod;
+  readonly namespace: string;
+  readonly payload: any;
+}
+
+export class MerossPacketManager {
+  // mqtt
+  readonly #mqttHostname: string | undefined;
+  readonly #mqttPort: number | undefined;
+  readonly #mqttUrlRewriter: IUrlRewriter | undefined;
+  readonly #mqttUnsubscribeDelay: number | undefined;
+
+  // http
+  // #httpHostname: string | undefined;
+  #httpHostnameTask: AsyncTask<string>;
+  #httpFailureRetryDate: number;
+  readonly #httpTimeout: number;
+  readonly #httpFailureRetryPeriod: number;
+  readonly #httpUrlRewriter: IUrlRewriter | undefined;
+
+  // to send to packet
+  readonly #key: IUserKey;
+  readonly #userId: IUserId;
+  readonly #appId: IAppId;
+  readonly #deviceId: IDeviceId;
+
+  // readonly #listener: IPushSourceWithBackPressure<IGenericMerossPacket>;
+
+  constructor(
+    {
+      mqtt: {
+        hostname: mqttHostname,
+        port: mqttPort,
+        urlRewriter: mqttUrlRewriter,
+        unsubscribeDelay: mqttUnsubscribeDelay,
+      } = {},
+      http: {
+        hostname: httpHostname,
+        timeout: httpTimeout = 500,
+        failureRetryPeriod: httpFailureRetryPeriod = 5 * 60 * 1000, // 5min
+        urlRewriter: httpUrlRewriter,
+      } = {},
+      key,
+      userId,
+      appId,
+      deviceId,
+    }: IMerossPacketManagerOptions,
+  ) {
+    this.#mqttHostname = mqttHostname;
+    this.#mqttPort = mqttPort;
+    this.#mqttUrlRewriter = mqttUrlRewriter;
+    this.#mqttUnsubscribeDelay = mqttUnsubscribeDelay;
+
+    this.#httpHostname = httpHostname;
+    this.#httpTimeout = httpTimeout;
+    this.#httpFailureRetryDate = Number.NEGATIVE_INFINITY;
+    this.#httpFailureRetryPeriod = httpFailureRetryPeriod;
+    this.#httpUrlRewriter = httpUrlRewriter;
+
+    this.#key = key;
+    this.#userId = userId;
+    this.#appId = appId;
+    this.#deviceId = deviceId;
+
+    // this.#listener = sharePushPipeWithBackPressure<IGenericMerossPacket>(
+    //   createMqttMerossPUSHPacketListener({
+    //     key,
+    //     userId,
+    //     client,
+    //   }),
+    // );
+  }
+
+  get key(): IUserKey {
+    return this.#key;
+  }
+
+  get userId(): IUserId {
+    return this.#userId;
+  }
+
+  get appId(): IAppId {
+    return this.#appId;
+  }
+
+  get deviceId(): IDeviceId {
+    return this.#deviceId;
+  }
+
+  #createPacket<GPayload>(
+    method: IMerossPacketMethod,
+    namespace: string,
+    payload: GPayload,
+  ): IMerossPacket<GPayload> {
+    return createMerossPacket<GPayload>({
+      key: this.#key,
+      userId: this.#userId,
+      appId: this.#appId,
+      method,
+      namespace,
+      payload,
+    });
+  }
+
+  #sendMqttPacket<GResponsePayload extends IAsyncTaskConstraint<GResponsePayload>>(
+    packet: IGenericMerossPacket,
+    abortable: Abortable,
+  ): AsyncTask<GResponsePayload> {
+    return sendMqttMerossPacket<GResponsePayload>({
+      hostname: this.#mqttHostname,
+      port: this.#mqttPort,
+      urlRewriter: this.#mqttUrlRewriter,
+      key: this.#key,
+      userId: this.#userId,
+      appId: this.#appId,
+      deviceId: this.#deviceId,
+      packet,
+      unsubscribeDelay: this.#mqttUnsubscribeDelay,
+      abortable,
+    });
+  }
+
+  #sendHttpPacket<GResponsePayload extends IAsyncTaskConstraint<GResponsePayload>>(
+    packet: IGenericMerossPacket,
+    abortable: Abortable,
+  ): AsyncTask<GResponsePayload> {
+    if (this.#httpHostname === void 0) {
+      return AsyncTask.error(new Error(`Missing hostname`), abortable);
+    } else {
+      return sendHttpMerossPacket<GResponsePayload>({
+        key: this.#key,
+        hostname: this.#httpHostname,
+        urlRewriter: this.#httpUrlRewriter,
+        packet,
+        abortable,
+      });
+    }
+  }
+
+  #sendHttpPacketWithTimeout<GResponsePayload extends IAsyncTaskConstraint<GResponsePayload>>(
+    packet: IGenericMerossPacket,
+    abortable: Abortable,
+  ): AsyncTask<GResponsePayload> {
+    return asyncTaskWithTimeout(
+      (abortable: Abortable): AsyncTask<GResponsePayload> => {
+        return this.#sendHttpPacket(
+          packet,
+          abortable,
+        );
+      },
+      this.#httpTimeout,
+      abortable,
+    );
+  }
+
+  #getHostname(
+    abortable: Abortable,
+  ): AsyncTask<string> {
+    return this.#sendMqttPacket<IMerossApplianceSystemFirmwareAbilityGETACKPayload>(
+      this.#createPacket<IMerossApplianceSystemFirmwareAbilityGETPayload>(
+        'GET',
+        MEROSS_APPLIANCE_SYSTEM_FIRMWARE_ABILITY_NAME,
+        {} satisfies IMerossApplianceSystemFirmwareAbilityGETPayload,
+      ),
+      abortable,
+    )
+      .successful((
+        data: IMerossApplianceSystemFirmwareAbilityGETACKPayload,
+      ): string => {
+        return data.firmware.innerIp;
+      });
+  }
+
+  #getCachedHostname(
+    abortable: Abortable,
+  ): AsyncTask<string> {
+    return (this.#httpHostname === void 0)
+      ? this.#getHostname(abortable)
+      : AsyncTask.success(this.#httpHostname, abortable);
+  }
+
+  #sendPacket<GResponsePayload extends IAsyncTaskConstraint<GResponsePayload>>(
+    packet: IGenericMerossPacket,
+    abortable: Abortable,
+  ): AsyncTask<GResponsePayload> {
+    if (this.#httpFailureRetryDate > Date.now()) {
+      return this.#sendMqttPacket<GResponsePayload>(
+        packet,
+        abortable,
+      );
+    } else {
+      return this.#getCachedHostname(abortable)
+        .successful((hostname: string, abortable: Abortable) => {
+          this.#httpHostname = hostname;
+          return this.#sendHttpPacketWithTimeout<GResponsePayload>(
+            packet,
+            abortable,
+          )
+            .errored((_, abortable: Abortable): AsyncTask<GResponsePayload> => {
+              this.#httpHostname = void 0;
+              this.#httpFailureRetryDate = Date.now() + this.#httpFailureRetryPeriod;
+              return this.#sendMqttPacket<GResponsePayload>(
+                packet,
+                abortable,
+              );
+            });
+        });
+
+    }
+  }
+
+  query<GResponsePayload extends IAsyncTaskConstraint<GResponsePayload>>(
+    {
+      method,
+      namespace,
+      payload,
+      abortable,
+    }: IMerossPacketManagerQueryOptions,
+  ): AsyncTask<GResponsePayload> {
+    return this.#sendPacket<GResponsePayload>(
+      this.#createPacket<any>(
+        method,
+        namespace,
+        payload,
+      ),
+      abortable,
+    );
+  }
+
+  observe<GResponsePayload extends IAsyncTaskConstraint<GResponsePayload>>(
+    namespace: string,
+  ): IPushSourceWithBackPressure<GResponsePayload> {
+    throw 'TODO';
+    // return mapFilterPushPipeWithBackPressure<IGenericMerossPacket, GResponsePayload>(
+    //   this.#listener,
+    //   (
+    //     packet: IGenericMerossPacket,
+    //   ): IMapFilterPushPipeWithBackPressureFunctionReturn<GResponsePayload> => {
+    //     if (packet.header.namespace === namespace) {
+    //       return packet.payload;
+    //     } else {
+    //       return MAP_FILTER_PUSH_PIPE_WITH_BACK_PRESSURE_DISCARD;
+    //     }
+    //   },
+    // );
+  }
+}

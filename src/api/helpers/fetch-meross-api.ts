@@ -1,47 +1,65 @@
 import { md5 } from '@lifaon/md5';
-import { asyncFetchJSON, AsyncTask, IAbortableOptions, IAsyncFetchJSONFunction, IAsyncTaskConstraint } from '@lirx/async-task';
+import { asyncFetchJSON, AsyncTask, IAbortableOptions, IAsyncTaskConstraint } from '@lirx/async-task';
+import { IUrlRewriter, NO_URL_REWRITE } from '@thingmate/wot-scripting-api';
 import { MEROSS_SECRET } from '../constants/meross-secret.constant';
 
 export interface IFetchMerossAPIOptions extends IAbortableOptions {
-  url: URL | string;
-  data: object;
-  token?: string;
-  fetch?: IAsyncFetchJSONFunction;
+  readonly url: URL | string; // the url of the API to call
+  readonly urlRewriter?: IUrlRewriter;
+  readonly data: object; // the data for the API
+  readonly token?: string; // an optional token (required for some services)
 }
 
 export interface IFetchMerossAPIResponseJSON<GData> {
-  apiStatus: number;
-  sysStatus: number;
-  info: string;
-  timestamp: number;
-  data: GData;
+  readonly apiStatus: number;
+  readonly sysStatus: number;
+  readonly info: string;
+  readonly timestamp: number;
+  readonly data: GData;
 }
 
+/**
+ * Performs a http request on the Meross cloud servers.
+ *
+ * This is used to communicate with the Meross api.
+ *
+ * Sources:
+ *  - https://github.com/Apollon77/meross-cloud/blob/master/index.js
+ *  - https://github-wiki-see.page/m/albertogeniola/MerossIot/wiki/HTTP-APIs
+ */
 export function fetchMerossAPI<GData extends IAsyncTaskConstraint<GData>>(
   {
     url,
+    urlRewriter = NO_URL_REWRITE,
     data,
     token,
-    fetch = asyncFetchJSON,
     abortable,
   }: IFetchMerossAPIOptions,
 ): AsyncTask<GData> {
-  const nonce = generateRandomString(16);
-  const timestamp = Date.now();
-  const params = encodeParams(data);
+  // INFO: Meross requests are signed
+  const nonce: string = generateRandomString(16);
+  const timestamp: number = Date.now();
+  const params: string = encodeParams(data);
 
-  const dataToSign = MEROSS_SECRET + timestamp + nonce + params;
-  const sign = md5(dataToSign);
+  const dataToSign: string = MEROSS_SECRET + timestamp + nonce + params;
+  const sign: string = md5(dataToSign);
 
-  const headers = new Headers({
+  const headers: Headers = new Headers({
     'Authorization': `Basic ${token ?? ''}`,
-    'vender': 'meross',
-    'AppVersion': '0.4.4.4',
-    'AppType': 'MerossIOT',
-    'AppLanguage': 'EN',
-    'User-Agent': 'MerossIOT/0.4.4.4',
+    'Vendor': 'meross',
+    'AppVersion': '3.22.4',
+    'AppType': 'iOS',
+    'AppLanguage': 'en',
+    'User-Agent': 'intellect_socket/3.22.4 (iPhone; iOS 17.2; Scale/2.00)',
+    // 'Content-Type': 'application/x-www-form-urlencoded',
     'Content-Type': 'application/json',
   });
+
+  // const withWithPayload: URL = new URL(url);
+  // withWithPayload.searchParams.set('params', params);
+  // withWithPayload.searchParams.set('sign', sign);
+  // withWithPayload.searchParams.set('timestamp', String(timestamp));
+  // withWithPayload.searchParams.set('nonce', nonce);
 
   const payload = {
     params,
@@ -50,13 +68,13 @@ export function fetchMerossAPI<GData extends IAsyncTaskConstraint<GData>>(
     nonce,
   };
 
-  const request = new Request(url, {
+  const request: Request = new Request(urlRewriter(url.toString()), {
     method: 'POST',
     headers,
     body: JSON.stringify(payload),
   });
 
-  return fetch<IFetchMerossAPIResponseJSON<GData>>(
+  return asyncFetchJSON<IFetchMerossAPIResponseJSON<GData>>(
     request,
     void 0,
     abortable,

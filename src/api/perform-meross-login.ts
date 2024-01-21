@@ -1,116 +1,97 @@
 import { md5 } from '@lifaon/md5';
-import { Abortable, AsyncTask } from '@lirx/async-task';
-import { retrieveOrGenerateEncryptedData } from '../crypto/store-encrypted-data';
-import { IHavingUserKey } from '../types/having-user-key.type';
+import { AsyncTask, IAbortableOptions } from '@lirx/async-task';
+import { IUrlRewriter } from '@thingmate/wot-scripting-api';
 import { MEROSS_LOGIN_URL } from './constants/meross-login-url.constant';
-import { fetchMerossAPI, IFetchMerossAPIOptions } from './helpers/fetch-meross-api';
+import { fetchMerossAPI } from './helpers/fetch-meross-api';
+
+/* TYPES */
 
 export interface IMerossLoginRequestDataMobileInfoJSON {
-  deviceModel: string;
-  mobileOsVersion: string;
-  mobileOs: string;
-  uuid: string;
-  carrier: string;
+  readonly resolution: string;
+  readonly carrier: string;
+  readonly deviceModel: string;
+  readonly mobileOs: string;
+  readonly mobileOSVersion: string;
+  readonly uuid: string;
 }
 
+/**
+ * The `data` interface to send when login.
+ */
 export interface IMerossLoginRequestDataJSON {
-  email: string;
-  password: string;
-  mobileInfo: IMerossLoginRequestDataMobileInfoJSON;
+  readonly email: string;
+  readonly password: string;
+  readonly encryption: number;
+  readonly accountCountryCode: string;
+  readonly mobileInfo: IMerossLoginRequestDataMobileInfoJSON;
+  readonly agree: number;
+  readonly mfaCode: unknown | undefined,
 }
 
-export interface IMerossLoginResponseDataJSON extends IHavingUserKey {
-  userid: string;
-  email: string;
-  token: string;
+/**
+ * The response sent by the Meross cloud servers when login.
+ *
+ * These properties are used later, when connection to the MQTT server, and when sending packets.
+ */
+export interface IMerossLoginResponseDataJSON {
+  readonly userid: string;
+  readonly email: string;
+  readonly token: string;
+  readonly key: string;
+  readonly domain: string; // ex: https://iotx-eu.meross.com
+  readonly mqttDomain: string; // ex: mqtt-eu-2.meross.com
+  readonly mfaLockExpire: number;
 }
 
-export interface IPerformMerossLoginOptions extends Omit<IFetchMerossAPIOptions, 'data' | 'url'> {
-  email: string;
-  password: string;
+/**
+ * The options to login.
+ */
+export interface IPerformMerossLoginOptions extends IAbortableOptions {
+  readonly email: string;
+  readonly password: string;
+  readonly urlRewriter?: IUrlRewriter;
 }
 
+/* FUNCTION */
+
+/**
+ * Performs a http request to login on the Meross cloud servers.
+ *
+ * WARN: Meross highly limits the API calls, so this function's result should be cached.
+ */
 export function performMerossLogin(
   {
     email,
     password,
-    ...options
+    urlRewriter,
+    abortable,
   }: IPerformMerossLoginOptions,
 ): AsyncTask<IMerossLoginResponseDataJSON> {
   const logIdentifier = '0b11b194f83724b614a6975b112f63cee2f098-8125-40c7-a280-5115913d9887';
 
+  const hashedPassword: string = md5(password);
+
   const data: IMerossLoginRequestDataJSON = {
     email,
-    password,
+    password: hashedPassword,
+    encryption: 1,
+    accountCountryCode: '--',
     mobileInfo: {
-      deviceModel: '',
-      mobileOsVersion: '',
+      resolution: '--',
+      carrier: '--',
+      deviceModel: '--',
       mobileOs: 'linux',
+      mobileOSVersion: '--',
       uuid: logIdentifier,
-      carrier: '',
     },
+    agree: 1,
+    mfaCode: void 0,
   };
 
   return fetchMerossAPI<IMerossLoginResponseDataJSON>({
-    ...options,
     url: MEROSS_LOGIN_URL,
+    urlRewriter,
     data,
+    abortable,
   });
 }
-
-/*-------------*/
-
-export function getPerformMerossLoginCachedKey(
-  {
-    email,
-    password,
-  }: Pick<IPerformMerossLoginOptions, 'email' | 'password'>,
-): string {
-  // TODO maybe use crypto.subtle.digest
-  return 'meross-login-' + md5(
-    JSON.stringify({
-      email,
-      password,
-    }),
-  );
-}
-
-const PERFORM_MEROSS_LOGIN_CACHE = new Map<string, AsyncTask<IMerossLoginResponseDataJSON>>;
-
-export interface IPerformMerossLoginCachedOptions extends IPerformMerossLoginOptions {
-  fresh?: boolean;
-}
-
-export function performMerossLoginCached(
-  {
-    fresh = false,
-    ...options
-  }: IPerformMerossLoginCachedOptions,
-): AsyncTask<IMerossLoginResponseDataJSON> {
-  const key: string = getPerformMerossLoginCachedKey(options);
-
-  let task: AsyncTask<IMerossLoginResponseDataJSON> | undefined = PERFORM_MEROSS_LOGIN_CACHE.get(key);
-
-  if ((task === void 0) || fresh) {
-    task = retrieveOrGenerateEncryptedData({
-      ...options,
-      key,
-      dataFactory: (abortable: Abortable): AsyncTask<IMerossLoginResponseDataJSON> => {
-        return performMerossLogin({
-          ...options,
-          abortable,
-        });
-      },
-      abortable: Abortable.never,
-    })
-      .errored((error: unknown): never => {
-        PERFORM_MEROSS_LOGIN_CACHE.delete(key);
-        throw error;
-      });
-
-    PERFORM_MEROSS_LOGIN_CACHE.set(key, task);
-  }
-
-  return AsyncTask.switchAbortable(task, options.abortable);
-}
-

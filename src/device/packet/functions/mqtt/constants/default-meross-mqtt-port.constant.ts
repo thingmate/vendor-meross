@@ -1,0 +1,1 @@
+export const DEFAULT_MEROSS_MQTT_PORT = 2001;

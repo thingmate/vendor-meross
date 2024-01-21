@@ -1,1 +1,1 @@
-export const MEROSS_URL = 'https://iot.meross.com';
+export const MEROSS_URL = 'https://iotx.meross.com';
